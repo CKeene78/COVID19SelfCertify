@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+    <body>
+        
+        <div class="grid-container">
+        <div class="grid-item"></div>
+        <div id="app"class="grid-item">
+
+            <section id="screenGreeting" class="screen">
+                <p id="divParaName">
+                        <span id="spanID">ID</span>: <input  id="paraName" onblur="Check_Greeting()">
+                </p>
+                <div id="divParaRelation">
+                    <p>
+                        Affiliation: <select id="paraRelation" onchange="Check_Greeting();">
+                            <option value=""></option>
+                            <option value="1">Patient</option>
+                            <option value="0">Staff</option>
+                            <option value="3">Visitor</option>
+                            <option value="2">Vendor</option>
+                        </select>
+                    </p>
+                </div>
+                <div>
+                    <button class="Continue" id="btnGreetingContinue" onclick="Check_Greeting(); Continue_Button('screenGreeting', false);">Continue</button>
+                </div>
+                <p>This COVID-19 self assessment tool will indicate whether it is safe for you to be on campus today. After you answer the questions, you will receive a message either clearing you to come to campus or instructing you to remain off campus and explaining what next steps to take.</p>
+                <p><strong>The information is confidential</strong> and is shared only with the Infection Control Officer, Infection Control Physician, Human Resources, and your manager, <strong>except when it is necessary to trace exposure to identified cases of COVID-19.</strong></p>
+            </section>
+
+            <section id="screenIQ" class="screen">
+                <h1>Are you currently in Isolation or Quarantine?</h1>
+                <ul>
+                    <li v-for='iq in arrIorQ'>
+                        <input type="radio" v-bind:id="iq.text" v-bind:value="iq.text" v-model="iqReason" v-on:click="showBtnsIQ=true">
+                        <label v-bind:for="iq.text">{{ iq.text }}</label>
+                    </li>
+                </ul>
+                <p v-show="iqReason != 'N/A' && iqReason != 'No' ">
+                    <label for="dateIQStart">Start Date:</label><input type="date" id="dateIQStart" v-model="iqStartDate">
+                    <br><br>
+                    <label for="dateIQEnd">End Date: </label><input type="date" id="dateIQEnd" v-model="iqEndDate">
+                </p>
+                <p v-show="showBtnsIQ">
+                    <button v-if="iqReason == 'N/A' || iqReason =='No' " class="Continue" v-on:click="" onclick="Continue_Button('screenIQ', false);">Continue</button>                    
+                    <button v-else v-on:click="IQ_Submit()" onclick="Skip_Back_To('screenIQ', 'screenRed')">Submit</button>
+                </p>
+                <button onclick="Back_Button('screenIsolationOrQuarentine')">Back</button>
+            </section>
+        
+            <section id="screenOnCampus" class="screen">       
+                <h1>Will you be: </h1>
+                <ul>
+                    <li v-for="criteria in arrOnCampusCriteria" v-bind:key="criteria.text">
+                        <input type="radio" class="liOnCampus" v-bind:id="criteria.text" v-bind:value="criteria.text" v-model="rdoOnCampus" v-on:click="showBtnsOnCampus=true">
+                        <label v-bind:for="criteria.text">{{ criteria.text }}</label>
+                    </li>
+                </ul>
+                <p v-show="showBtnsOnCampus">
+                    <button class="Continue" onclick="Continue_Button('screenOnCampus', false);">Continue</button>
+                </p>
+                <button onclick="Back_Button('screenOnCampus')">Back</button>
+            </section>
+
+            <section id="screenSymptoms1st" class="screen">
+                <h1>Are you experiencing any new and unexpected symptoms?</h1>
+                <ul id="ulSymptoms1st">
+                    <li v-for='symptom in arrSymptoms1st' v-bind:key="symptom.text">
+                        <input type="checkbox" class="liSymptoms1st" v-bind:id="symptom.text" v-bind:value="symptom.text" v-model="symptomsMajor" 
+                        v-on:click="showSymptoms1Buttons=true">
+                        <label v-bind:for="symptom.text">{{ symptom.text }}</label>
+                    </li>
+                </ul>
+                <p v-show="showSymptoms1Buttons">
+                    <button class="Continue" onclick="Continue_Button('screenSymptoms1st', false);"
+                    >Continue</button>    
+                </p>
+                <button onclick="Back_Button('screenSymptoms1st')">Back</button>
+            </section>
+
+            <section id="screenSymptoms2nd" class="screen">
+                    <h1>Are you experiencing any new and unexpected symptoms?</h1>
+                    <ul id="ulSymptoms2nd">
+                        <li v-for="symptom in arrSymptoms2nd" v-bind:key="symptom.text">
+                            <input type="checkbox" class="liSymptoms2nd" v-bind:id="symptom.text" v-bind:value="symptom.text"  v-model="symptomsMajor" v-on:click="showSymptoms2Buttons=true">
+                            <label v-bind:for="symptom.text">{{ symptom.text }}</label>
+                        </li>
+                    </ul>
+                    <p>
+                        <button v-show="showSymptoms2Buttons" class="Continue" onclick="Continue_Button('screenSymptoms2nd', false);">Continue</button>
+                    </p>
+                <button onclick="Back_Button('screenSymptoms2nd')">Back</button>
+            </section>
+
+            <section id="screenVacine" class="screen">
+                <h1>Have you completed a COVID vaccine course?</h1>
+                <p>
+                    <ul>
+                        <li><input type="radio" id="vaxyesmax" name="vaxState" v-on:click="hasVacine = true; vaxYesMax = true; showVaxButtons = true;"> <label for="vaxyesmax">Yes, more than 14 days ago</label></li>
+                        <li><input type="radio" id="vaxyesmin" name="vaxState" v-on:click="hasVacine = true; vaxYesMax = false; showVaxButtons = true;"> <label for="vaxyesmin">Yes, within the last 14 days</label></li>
+                        <li><input type="radio" id="vaxno" name="vaxState" v-on:click="hasVacine = false; vaxYesMax = false; showVaxButtons = true;"> <label for="vaxno">No, I have not completed a COVID vaccine treatment</label></li>
+                    </ul>
+                </p>
+                <p>
+                    <button  v-if="(vaxYesMax == true) && (hasVacine == true)" v-on:click="Skip_Back_To('screenVacine','screenTested')">Continue</button>
+                    <button v-else-if="(vaxYesMax == false) && (hasVacine == true)" v-on:click="Continue_Button('screenVacine', false)">Continue</button>
+                    <button v-else v-show="showVaxButtons" v-on:click="Continue_Button('screenVacine', true)">Continue</button>
+                </p>
+                <p>
+                    <button onclick="Back_Button('screenVacine')">Back</button>
+                </p>
+            </section>
+
+            <section id="screenVaxDate" class="screen">
+                <h1><label for="dateVacinated">Date of final vaccination?</label></h1>
+                <input type="date" id="dateVacinated" v-model="dateVacinated">
+                <p>
+                    <button onclick="Continue_Button('screenVaxDate',false)">Continue</button>
+                </p>
+                <p>
+                    <button onclick="Back_Button('screenVaxDate')">Back</button>
+                </p>
+            </section>
+
+            <section id="screenExposure" class="screen">
+                <h1>
+                    Have you had close contact with someone diagnosed with or presumed to have COVID-19 within the last 10 days?
+                </h1>
+                <p>
+                    <button class="Yes" v-on:click="chkHasExposure=true;" onclick="Continue_Button('screenExposure', false);">Yes</button><br><br>
+                    <button class="No" v-on:click="chkHasExposure=false;" onclick="Continue_Button('screenExposure', false);">No</button><br><br>
+                    <!--button onclick="Back_Button('screenExposure')">Back</button-->
+                </p>
+            </section>
+
+            <section id="screenTravel" class="screen">
+                <h1>Have you traveled outside of the local area for more than 24 hours?</h1>
+                <p style="font-size: 15px;">
+                    You can review the full Massachusetts travel orders at 
+                    <a href="javascript:window.open('https://www.mass.gov/info-details/covid-19-travel-order')">
+                        Mass.gov COVID-19 Travel Orders
+                    </a>
+                </p><br>
+                <p>
+                    <button class="Yes" v-on:click="chkTraveled=true;" onclick="Continue_Button('screenTravel', false);">Yes</button><br><br>                                     
+                    <button class="No" v-on:click="chkTraveled=false;" onclick="Continue_Button('screenTravel', false);">No</button><br><br>                                    
+                    <!--button onclick="Back_Button('screenTravel')">Back</button-->
+                </p>
+            </section>
+        
+            <section id="screenTested" class="screen">
+                <h1>
+                    <!--b>Have you had a COVID-19 test within the last 14 days?</b-->
+                    <!--b>Have you had a COVID test at a location <u><strong style="color: red;">OTHER</strong></u> than the Austen Riggs Center</b-->
+                    Have you received a <u><i>positive</i></u> COVID test within the past 10 days?
+                </h1>
+                <div>
+                    <br><br>
+                    <button class="Yes" 
+                        v-on:click="chkTested=true" 
+                        onclick="Continue_Button('screenTested', false);" 
+                    >Yes</button>
+                    <br><br>
+                    <button class="No" 
+                        v-on:click="chkTested=false; Payload_Summary();" 
+                        onclick="Continue_Button('screenTested', true);" 
+                    >No</button>
+                    <br><br>
+                    <!--button onclick="Back_Button('screenTested')">Back</button-->
+                </div>
+            </section>
+
+            <section id="screenWhyTested" class="screen">
+                <h1>Reason for COVID-19 test?</h1>
+                <ul>
+                    <li v-for='testreason in arrTestReasons' v-bind:key="testreason.text">
+                        <input type="radio" v-bind:id="testreason.text" v-bind:value="testreason.text" v-model="testReason" 
+                            v-on:click="showTestReasonButtons=true;"
+                        >
+                        <label v-bind:for="testreason.text">{{ testreason.text }}</label>
+                    </li>
+                </ul>
+                <label for="dateTested">Test Date: </label>
+                <input type="date" id="dateTested" v-model="dateTested">
+                <p>
+                    <button v-on:click="Payload_Summary()" onclick="Continue_Button('screenWhyTested', false);">Continue</button>
+                    <br><br><button onclick="Back_Button('screenWhyTested')">Back</button>
+                </p>
+            </section>
+
+            <section id="screenSummary" class="screen">
+                <h1>Summary:</h1>
+                <p> 
+                    <ul>
+                        <li>
+                            <label onclick="Skip_Back_To('screenSummary','screenOnCampus')">
+                                <b>On Campus</b>: {{ payload.onCampus }}
+                            </label>
+                        </li>
+                        <li>
+                            <label onclick="Skip_Back_To('screenSummary','screenSymptoms1st')">
+                                <b>Symptoms</b>: {{ payload.symptoms }}
+                            </label>
+                        </li>
+                        <li>
+                            <label onclick="Skip_Back_To('screenSummary','screenVacine')">
+                                <b>Vaccinated</b>: {{ payload.hasVacine }} {{ dateVacinated }}
+                            </label>
+                        </li>
+                        <li>
+                            <label onclick="Skip_Back_To('screenSummary','screenExposure')">
+                                <b>Exposure</b>: {{ payload.hasExposure }}
+                            </label>
+                        </li>
+                        <li>
+                            <label onclick="Skip_Back_To('screenSummary','screenTravel')">
+                                <b>Traveled</b>: {{ payload.hasTraveled }}
+                            </label>
+                        </li>
+                        <li>
+                            <label onclick="Skip_Back_To('screenSummary','screenTested')">
+                                <b>Test Result</b>: {{ payload.hasTested }}
+                            </label>
+                        </li>
+
+                        <li v-show="payload.hasTested">
+                            <label onclick="Skip_Back_To('screenSummary','screenWhyTested')">
+                                <b>Reason Tested</b>: {{ payload.reasonTested }}
+                            </label>
+                        </li>                        
+                        <li v-show="payload.hasTested">
+                            <label onclick="Skip_Back_To('screenSummary','screenTested')">
+                            <b>Test Date</b>: {{ payload.dateTested }}
+                            </label>
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    <button class="Continue" v-on:click="Submit_Form()" onclick="Continue_Button('screenSummary', false);">Submit</button>
+                    <br><br><button onclick="Back_Button('screenSummary'); Back_Button('screenWhyTested')">Back</button>
+                </p>
+            </section>
+
+            <section id="screenThinking" class="screen">
+                <h1><b>Processing...</b></h1>
+                <img src="images/Processing.jpg" id="imgLoading">
+            </section>
+
+            <section id="screenGreen" class="screen">
+                <p style="color: white; background-color: rgba(54,176,75,1);">Good to go</p>
+                <p>
+                    Stay Healthy<br>
+                    <div v-show="rdoOnCampus != 'Working remotely'"> See you at Riggs</div>
+                </p>
+                <br>
+                <p>
+                    <a href="https://labpass.com/en/login">Click here to order a test or check results at Labpass</a>   
+                </p>
+                 <p><img src="images/chkGreen.jpg"></p>
+                <p><h1>COVID-19 Testing for Riggs Community</h1></p>
+                <ul>
+                    <li>                
+                        <details>
+                        <summary>Click here for testing location, hours, and schedule</summary>
+                        <p>
+                        <ul>
+                            <li><b>Site:</b> Campus Testing Center</li>
+                            <li><b>Days:</b> Monday, Tuesday, Thursday, Friday</li>
+                            <li><b>Hours:</b> 8:00 am - 5:00 pm</li>
+                        </ul>
+                        </p>
+                        <p>
+                            <u>For those in Group Testing</u><br>
+                            Get your schedule from Testing staff, x5555
+                        </p>
+                        <p>
+                            <u>For Individual Testing:</u><br>
+                        <p>
+                        <table class="testschedule">
+                            <thead class='altrow'>
+                                <th>Last name begins with</th><th>Test on</th><th>between the hours of</th>
+                            </thead>
+                            <tbody>
+                                <template v-for='(info, index) in arrTestingSchedule'>
+                                <tr :class="{ 'altrow': index % 2 }">
+                                    <td>{{ info.lastname }}</td><td>{{ info.onday }}</td><td>{{ info.hours }}</td>
+                                </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                        </p>
+                        <p>If your schedule doesn't conform to the above schedule please stop in anytime on M/Tu <b>and</b> Th/F</p>
+                        <p>To assist with the process and move through the testing quickly, <strong>always</strong> order your test the morning of the test.</p>
+                        </details>
+                    </li>
+                </ul>
+               
+            </section>
+
+            <section id="screenRed" class="screen screenRed">
+
+                <div v-if="hasVacine == true">
+                    <p style="background-color: yellow;">
+                        Fevers, chills, body aches, fatigue, headache and nausea are symptoms that are expected to follow vaccination.<br><br>
+                        If you are experiencing such symptoms, <strong>and you completed your vaccination in the prior 72 hours</strong>, you do <u>not</u> need to contact the Infection Control Physician.
+                    </p>
+                    <p>
+                        <button v-on:click="hasVacine = false">Not Apply</button>
+                    </p>
+                </div>
+
+                <div v-else>
+                    <p style="color: white; background-color: rgba(214,40,40,100);">STOP!</p>
+                    <p><b>Do not come to Campus and self-isolate until cleared to come back to work.</b></p>
+                    <div v-show="showAffiliation === 0"><p>Contact your manager.</p></div>
+                    <p>Notify the Infection Control Physician (M-F, 8-5):  <strong>555-555-5555</strong>.</p>
+                    <p>Evenings and weekends contact the Charge Nurse: <strong>555-555-5555</strong>.</p>
+                    <p>
+                        You are not cleared to come to Campus. 
+                        Please call the COVID-19 hotline [<strong>555-555-5555</strong>]. 
+                        Tell them your symptoms or situation and that you work at a <strong>medical facility that is a congregate care setting.</strong> 
+                        This will identify your situation as having priority. 
+                        They will probably schedule you for testing at the hospital. 
+                        If you live elsewhere you should make contact with the comparable public health service there.
+                    </p>
+                    <p>
+                        <img src="images/chkRed.jpg">
+                    </p>
+                </div>
+
+            </section>
+            
+        </div>
+        <div class="grid-item"></div>
+    </div></body>
+    <!--script src="vue.js"></script-->
+    <script src="vue.min.js"></script>
+    <script src="index.js"></script>    
+</html>

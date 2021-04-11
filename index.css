@@ -1,0 +1,160 @@
+:root {
+    --bgcolor: white;
+    --scrwidth: 75%;
+    --scrheight: 95%;
+    /*--fontsize: 20px;*/
+    --fontsize: 2em;
+}
+
+body {
+    background-color: lightgrey;
+    font-size: var(--fontsize);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto var(--scrwidth) auto;
+}
+
+.grid-item section {
+    position:absolute;
+    visibility:collapse;
+    height: var(--scrheight);
+    border-radius: 5%;
+    border: black solid 2px;
+}
+
+.grid-item section p {
+    text-align: center;
+    margin: 3%;
+}
+
+ul {
+    text-align: center;
+    list-style-type: none;
+}
+
+li {
+    text-align: left;
+    padding: 2%;
+}
+
+li input[type=checkbox], li input[type=radio]{
+    transform: scale(2);
+}
+
+.screen { 
+    background-color: var(--bgcolor);
+    width: var(--scrwidth);
+    text-align: center;
+    overflow: auto;
+}
+
+img {
+    width: calc(var(--scrwidth) /2);
+    height: var(--scrheight / 2);
+}
+
+button { 
+    background-color: rgba(56,96,178,1);
+    color: white;
+    font-size: var(--fontsize);
+    height: 100px;
+    /*width: 150px;*/
+    width: 5em;
+    border-radius: 50%;
+    top: var(--scrheight);
+}
+
+/*
+.Yes {
+    background-color: green;
+}
+
+.Continue {
+    background-color: green;
+}
+
+.No {
+    background-color: lightcoral;
+}
+*/
+
+#divParaName { visibility: hidden; }
+
+#divParaRelation { visibility: hidden; }
+
+#paraTempReading { visibility: hidden; }
+
+#txtTempReading { 
+    width: 3em;
+    text-align: center; 
+}
+
+.toggleChannel {
+    z-index: 1;
+    width: 50px;
+    height: 10px;
+}
+
+.toggleButton { 
+    position: absolute;
+    z-index: 2;
+    border-color: black;
+    content: 'No'; 
+    align-items: left; 
+    width: 10px; 
+    border-radius: 50%; 
+    background-color: gray; 
+    top: 1px;  
+    left: 1px; 
+    transition:  all 0.5s;                 
+}
+
+@keyframes thinking {
+    from { transform: rotate(0deg); }
+    to {  transform: rotate(360deg); }
+}
+
+#imgLoading {
+    height:100px;
+    width:100px;
+    animation-name: thinking;
+    animation-duration: 60s;
+    animation-iteration-count: infinite;
+}
+
+.screenRed img {
+    height: 200px;
+    width: 200px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-item-left { flex: 50%; }
+
+.flex-item-right { flex: 50%; }
+
+@media (max-width: 500px) { .flex-item-left, .flex-item-right { flex: 100%; } }
+
+summary {
+    background-color: rgba(54,176,75,1);
+   
+}
+
+.testschedule {
+    margin-left: auto;
+    margin-right: auto;   
+}    
+
+.testschedule td {
+    padding: 1%;
+    /*border: 1px solid lightslategrey;*/
+}
+
+.altrow {
+    background-color: lightslategray;
+}

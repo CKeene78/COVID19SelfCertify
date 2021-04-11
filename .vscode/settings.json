@@ -1,0 +1,13 @@
+{
+    "azureFunctions.deploySubpath": "api",
+    "azureFunctions.postDeployTask": "npm install",
+    "azureFunctions.projectLanguage": "JavaScript",
+    "azureFunctions.projectRuntime": "~3",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.preDeployTask": "npm prune",
+    "azureLogicAppsV2.deploySubpath": "api",
+    "azureLogicAppsV2.postDeployTask": "npm install",
+    "azureLogicAppsV2.projectLanguage": "JavaScript",
+    "azureLogicAppsV2.projectRuntime": "~3",
+    "azureLogicAppsV2.preDeployTask": "npm prune"
+}
