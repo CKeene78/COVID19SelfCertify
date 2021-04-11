@@ -60,7 +60,7 @@ let app = new Vue({
         testReason : "N/A",
         showTestReasonButtons : false,
         arrTestReasons : [
-            { text: "ARC Screening"},
+            { text: "Screening"},
             { text: "Symptomatic" },
             { text: "Exposure" }
         ],
@@ -159,9 +159,6 @@ let app = new Vue({
                 }
             }
 
-            //console.log("payload", JSON.stringify(this.payload));
-            //console.log('optioons', options)
-
             //SEND REQUEST OBJECT TO THE "SUBMIT" FUNCTION IN THE API                
             fetch("/api/Submit", options)
                 .catch(err => console.log("Error: ", err))
@@ -182,12 +179,10 @@ let app = new Vue({
 
         //ISOLATED OR QUARENTINED
         IQ_Submit: async function(){
-            //sections["screenIQ"].style.visibility = "collapse";
-            //Advise_Person({redFlag: 2})
+
             let arrStart = this.iqStartDate.split('-')
             let iqStart = `${arrStart[1]}-${arrStart[2]}-${arrStart[0]}`
 
-            
             let arrEnd = this.iqEndDate.split('-')
             let iqEnd = `${arrEnd[1]}-${arrEnd[2]}-${arrEnd[0]}`
 
@@ -197,8 +192,6 @@ let app = new Vue({
                 startDate: iqStart,
                 endDate: iqEnd
             }
-
-            //console.log(iqAlert);
 
             //CREATE THE REQUEST'S OPTIONS OBJECT
             const iqOptions = {
