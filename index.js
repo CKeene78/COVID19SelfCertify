@@ -241,13 +241,15 @@ function Check_Greeting(){
     }
 
     //if( isBlank(NAME) || isBlank(CLASS) ){
-    if( !( isBlank(NAME) && isBlank(CLASS) ) ){
+    if( ( isBlank(NAME) || isBlank(CLASS) ) ){
         document.getElementById("btnGreetingContinue").style.visibility = "collapse";
     } else {
         //document.getElementById("divParaName").style.visibility = "collapse";
         //document.getElementById("divParaRelation").style.visibility = "collapse";
         document.getElementById("btnGreetingContinue").style.visibility = "visible";
     }
+    
+    console.log("boo 1");
 }
 
 
