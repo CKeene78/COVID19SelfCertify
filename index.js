@@ -230,17 +230,18 @@ sections[0].style.visibility = "visible";
 
 function Check_Greeting(){
     
-    if( isBlank(NAME) ){ 
+    if( !(isBlank(NAME)) ){ 
         //document.getElementById("divParaName").style.visibility = "visible";
         NAME = document.getElementById("paraName").value;
     }
     
-    if( isBlank(CLASS) ){ 
+    if( !(isBlank(CLASS)) ){ 
         //document.getElementById("divParaRelation").style.visibility = "visible";
         CLASS = document.getElementById("paraRelation").value;
     }
 
-    if( isBlank(NAME) || isBlank(CLASS) ){
+    //if( isBlank(NAME) || isBlank(CLASS) ){
+    if( !( isBlank(NAME) &&  !isBlank(CLASS) ) ){
         document.getElementById("btnGreetingContinue").style.visibility = "collapse";
     } else {
         //document.getElementById("divParaName").style.visibility = "collapse";
@@ -261,7 +262,7 @@ function Check_Staff(screen){
 
 function isBlank(str){
     //return( !(str || str.trim().length === 0 || str !== '') );
-    return !(!str && str === "")
+    return !str; // && str === "")
 }
 
 
