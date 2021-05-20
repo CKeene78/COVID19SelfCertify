@@ -249,7 +249,7 @@ function Check_Greeting(){
     
     console.log("Name", !(isBlank(NAME)) );
     console.log("Class", !(isBlank(CLASS)) );
-    Console.log("Equals",  !( isBlank(NAME) && isBlank(CLASS) ) );
+    console.log("Equals",  !( isBlank(NAME) && isBlank(CLASS) ) );
 }
 
 
