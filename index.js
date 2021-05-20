@@ -259,7 +259,7 @@ function Check_Staff(screen){
 
 function isBlank(str){
     //return( !(str || str.trim().length === 0 || str !== '') );
-    return !(str && str === "")
+    return (!str && str === "")
 }
 
 
