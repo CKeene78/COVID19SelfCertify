@@ -218,9 +218,9 @@ window.location.search.replace("?","").split("&").forEach(parameter => {
 });
 
 let NAME = parameters["name"];
-document.getElementById("paraName").value = NAME;
-let CLASS = parameters["class"]
-document.getElementById("paraRelation").value = CLASS
+if(!NAME){ document.getElementById("paraName").value = NAME };
+let CLASS = parameters["class"];
+if(!CLASS){ document.getElementById("paraRelation").value = CLASS };
 
 if(CLASS === "0"){document.getElementById("spanID").textContent = "Name" };
 
