@@ -239,7 +239,7 @@ function Check_Greeting(){
     }
 
     //if( isBlank(NAME) || isBlank(CLASS) ){
-    if( !( isBlank(NAME) && isBlank(CLASS) ) ){
+    if( !(isBlank(NAME)) && !(isBlank(CLASS)) ){
         document.getElementById("btnGreetingContinue").style.visibility = "collapse";
     } else {
         //document.getElementById("divParaName").style.visibility = "collapse";
@@ -249,7 +249,7 @@ function Check_Greeting(){
     
     console.log("Name", !(isBlank(NAME)) );
     console.log("Class", !(isBlank(CLASS)) );
-    console.log("Equals",  !( isBlank(NAME) && isBlank(CLASS) ) );
+    console.log("Equals",  !(isBlank(NAME)) && !(isBlank(CLASS)) );
 }
 
 
