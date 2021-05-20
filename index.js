@@ -247,7 +247,9 @@ function Check_Greeting(){
         document.getElementById("btnGreetingContinue").style.visibility = "visible";
     }
     
-    console.log("boo 1");
+    console.log("Name", !(isBlank(NAME)) );
+    console.log("Class", !(isBlank(CLASS)) );
+    Console.log("Equals",  !( isBlank(NAME) && isBlank(CLASS) ) );
 }
 
 
