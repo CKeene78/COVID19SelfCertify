@@ -241,7 +241,7 @@ function Check_Greeting(){
     }
 
     //if( isBlank(NAME) || isBlank(CLASS) ){
-    if( !( isBlank(NAME) &&  !isBlank(CLASS) ) ){
+    if( !( isBlank(NAME) && isBlank(CLASS) ) ){
         document.getElementById("btnGreetingContinue").style.visibility = "collapse";
     } else {
         //document.getElementById("divParaName").style.visibility = "collapse";
