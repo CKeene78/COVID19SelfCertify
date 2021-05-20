@@ -218,7 +218,7 @@ window.location.search.replace("?","").split("&").forEach(parameter => {
 });
 
 let NAME = parameters["name"];
-if(!(!NAME)){ document.getElementById("paraName").value = NAME };
+if( !(isBlank(NAME)) ){ document.getElementById("paraName").value = NAME };
 let CLASS = parameters["class"];
 if(!(!CLASS)){ document.getElementById("paraRelation").value = CLASS };
 
@@ -241,7 +241,7 @@ function Check_Greeting(){
     }
 
     //if( isBlank(NAME) || isBlank(CLASS) ){
-    if( ( isBlank(NAME) || isBlank(CLASS) ) ){
+    if( !( isBlank(NAME) && isBlank(CLASS) ) ){
         document.getElementById("btnGreetingContinue").style.visibility = "collapse";
     } else {
         //document.getElementById("divParaName").style.visibility = "collapse";
