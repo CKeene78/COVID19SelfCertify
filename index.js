@@ -150,6 +150,8 @@ let app = new Vue({
 
             showAffiliation = parameters["class"]
             
+            console.log("payload=", payload);
+            
             //CREATE THE REQUEST'S OPTIONS OBJECT
             const options = {
                 method: "POST",
@@ -256,7 +258,8 @@ function Check_Staff(screen){
 
 
 function isBlank(str){
-    return( !str || str.trim().length === 0);
+    //return( !(str || str.trim().length === 0 || str !== '') );
+    return !(str && str === "")
 }
 
 
