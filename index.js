@@ -218,9 +218,9 @@ window.location.search.replace("?","").split("&").forEach(parameter => {
 });
 
 let NAME = parameters["name"];
-if(!NAME){ document.getElementById("paraName").value = NAME };
+if(!(!NAME)){ document.getElementById("paraName").value = NAME };
 let CLASS = parameters["class"];
-if(!CLASS){ document.getElementById("paraRelation").value = CLASS };
+if(!(!CLASS)){ document.getElementById("paraRelation").value = CLASS };
 
 if(CLASS === "0"){document.getElementById("spanID").textContent = "Name" };
 
@@ -261,7 +261,7 @@ function Check_Staff(screen){
 
 function isBlank(str){
     //return( !(str || str.trim().length === 0 || str !== '') );
-    return (!str && str === "")
+    return !(!str && str === "")
 }
 
 
