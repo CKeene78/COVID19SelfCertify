@@ -218,7 +218,9 @@ window.location.search.replace("?","").split("&").forEach(parameter => {
 });
 
 let NAME = parameters["name"];
+document.getElementById("paraName").value = NAME;
 let CLASS = parameters["class"]
+document.getElementById("paraRelation").value = CLASS
 
 if(CLASS === "0"){document.getElementById("spanID").textContent = "Name" };
 
@@ -229,12 +231,12 @@ sections[0].style.visibility = "visible";
 function Check_Greeting(){
     
     if( isBlank(NAME) ){ 
-        document.getElementById("divParaName").style.visibility = "visible";
+        //document.getElementById("divParaName").style.visibility = "visible";
         NAME = document.getElementById("paraName").value;
     }
     
     if( isBlank(CLASS) ){ 
-        document.getElementById("divParaRelation").style.visibility = "visible";
+        //document.getElementById("divParaRelation").style.visibility = "visible";
         CLASS = document.getElementById("paraRelation").value;
     }
 
