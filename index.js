@@ -218,9 +218,7 @@ window.location.search.replace("?","").split("&").forEach(parameter => {
 });
 
 let NAME = parameters["name"];
-if( !(isBlank(NAME)) ){ document.getElementById("paraName").value = NAME };
 let CLASS = parameters["class"];
-if(!(!CLASS)){ document.getElementById("paraRelation").value = CLASS };
 
 if(CLASS === "0"){document.getElementById("spanID").textContent = "Name" };
 
@@ -304,4 +302,6 @@ function Advise_Person(data){
     }
 }
 
+if( !(isBlank(NAME)) ){ document.getElementById("paraName").value = NAME };
+if( !(isBlank(CLASS)) ){ document.getElementById("paraRelation").value = CLASS };
 Check_Greeting();
